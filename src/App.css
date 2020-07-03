@@ -1,38 +1,80 @@
-.App {
-  text-align: center;
+.mainFrame {
+  background-color: #f4f4f4;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  background-color: #c72a47;
+  display: flex;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.body {
+  background-color: white;
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.subtitle {
+  font-size: 20px;
+  display: flex;
+}
+
+.filterBox {
+  background-color: #e2e2e2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 5px 5px 10px;
+  margin-top: 10px;
+}
+
+.filterLabel {
+  flex: 1;
+  margin: 10px;
+  max-width: 90px;
+  font-size: 20px;
+}
+
+.filter {
+  flex: 1;
+  margin: 10px;
+  max-width: 150px;
+}
+
+.tvShowList {
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.mainRow {
+  display: flex;
+}
+
+.thumbnail {
+  height: 150px;
+  border-style: solid;
+  border-color: #e2e2e2;
+  border-width: 2px;
+}
+
+.mainDetails {
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.mainDetail {
+  flex: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.showTitle {
+  font-weight: bold;
+}
+
+.hr {
+   margin-top: 15px;
+   margin-bottom: 15px;
 }
