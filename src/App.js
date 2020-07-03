@@ -57,7 +57,7 @@ class App extends React.Component {
             {this.state.data.map((show, index) => {
               return <div class='tvShow' key={index}>
                 <div class='mainRow'>
-                  <img class='thumbnail' src={show.imageurl} />
+                  <img class='thumbnail' src={show.imageurl} alt='Show thumbnail' />
                   <div class='mainDetails'>
                     <div class='mainDetail showTitle'>{show.name}</div>
                     <div class='mainDetail'>Genre: {show.genre}</div>
