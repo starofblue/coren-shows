@@ -1,25 +1,35 @@
 .mainFrame {
-  background-color: #f4f4f4;
-  padding: 20px;
+  font-family: Cabin;
 }
 
 .title {
-  background-color: #c72a47;
+  background-color: #e5951f;
   display: flex;
+  align-items: center;
   font-size: 20px;
   color: white;
   font-weight: bold;
-  padding: 25px;
+}
+
+.titlePic {
+  margin-top: 29px;
+  margin-bottom: 28px;
+  margin-left: 42px;
+  margin-right: 37px;
 }
 
 .body {
   background-color: white;
-  padding: 20px;
+  padding-left: 52px;
+  padding-right: 52px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .subtitle {
   font-size: 20px;
   display: flex;
+  margin-bottom: 20px;
 }
 
 .filterBox {
@@ -27,26 +37,38 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 5px 5px 5px 10px;
-  margin-top: 10px;
+  margin-top: 40px;
+  padding: 12px;
 }
 
 .filterLabel {
-  flex: 1;
-  margin: 10px;
   max-width: 90px;
   font-size: 20px;
+  margin-left: 13px;
+  margin-right: 28px;
 }
 
-.filter {
-  flex: 1;
-  margin: 10px;
-  max-width: 150px;
+.dropdown {
+  width: 117px;
+  height: 29px;
+  margin-right: 20px;
+}
+
+.dropdown-toggle {
+  background-color: white;
+  color: #909090;
+  text-align: left;
+  line-height: 0px;
+  width: 117px;
+  height: 29px;
 }
 
 .tvShowList {
   background-color: #f4f4f4;
-  padding: 20px;
+  padding-top: 31px;
+  padding-bottom: 31px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .mainRow {
@@ -54,27 +76,49 @@
 }
 
 .thumbnail {
-  height: 150px;
+  height: 100px;
+  width: 166px;
   border-style: solid;
   border-color: #e2e2e2;
   border-width: 2px;
 }
 
 .mainDetails {
-  padding-left: 20px;
+  padding-left: 24px;
   display: flex;
   flex-direction: column;
 }
 
-.mainDetail {
-  flex: 1;
+.showTitle {
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.showTitle {
-  font-weight: bold;
+.genre {
+  margin-top: 12px;
+}
+
+.tags {
+  margin-top: 11px;
+}
+
+.description {
+  margin-top: 17px;
+}
+
+.status {
+  margin-top: 20px;
+}
+
+.streaming {
+  margin-top: 15px;
 }
 
 .hr {
    margin-top: 15px;
    margin-bottom: 15px;
+}
+
+.bold {
+  font-weight: bold;
 }

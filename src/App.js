@@ -1,4 +1,6 @@
 import React from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import './App.css';
 
 class App extends React.Component {
@@ -38,35 +40,40 @@ class App extends React.Component {
   render() {
     return (
       <div class='mainFrame'>
-        <div class='title'>Coren's List, a website where I list TV shows I like</div>
+        <div class='title'>
+          <img class='titlePic' src='https://drive.google.com/uc?export=view&id=1lk2mztscq5D2stuCj9lOW2JEM2zbSfp8' alt="Coren's shows" />
+          A website where I list TV shows I like
+        </div>
         <div class='body'>
-          <div class='subtitle'>Find your next TV show to watch!</div>
+          <div class='subtitle'>I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.</div>
+          <div class='subtitle'>Filter by genre, tags, or availability on streaming services to find your next show.</div>
+          <div class='subtitle'>Happy watching!</div>
           <div class='filterBox'>
             <div class='filterLabel'>Filter by:</div>
-            <select class='filter' name="genre" id="genre">
-              <option value="" disabled selected>Genre</option>
-            </select>
-            <select class='filter' name="tags" id="tags">
-              <option value="" disabled selected>Tags</option>
-            </select>
-            <select class='filter' name="streaming" id="streaming">
-              <option value="" disabled selected>Streaming</option>
-            </select>
+            <DropdownButton className='filter' id='genre' variant='default' title="Genre">
+              <Dropdown.Item>Action</Dropdown.Item>
+            </DropdownButton>
+            <DropdownButton className='filter' id='tags' variant='default' title="Tags">
+              <Dropdown.Item>Action</Dropdown.Item>
+            </DropdownButton>
+            <DropdownButton className='filter' id='streaming' variant='default' title="Streaming">
+              <Dropdown.Item>Action</Dropdown.Item>
+            </DropdownButton>
           </div>
           <div class='tvShowList'>
             {this.state.data.map((show, index) => {
               return <div class='tvShow' key={index}>
                 <div class='mainRow'>
-                  <img class='thumbnail' src={show.imageurl} alt='Show thumbnail' />
+                  <img class='thumbnail' src={'https://drive.google.com/uc?export=view&id=' + show.image_id} alt='Show thumbnail' />
                   <div class='mainDetails'>
-                    <div class='mainDetail showTitle'>{show.name}</div>
-                    <div class='mainDetail'>Genre: {show.genre}</div>
-                    <div class='mainDetail'>Tags: {show.tags}</div>
+                    <div class='showTitle'>{show.name}</div>
+                    <div class='genre'>Genre: {show.genre}</div>
+                    <div class='tags'>Tags: {show.tags}</div>
                   </div>
                 </div>
-                <div>{show.description}</div>
-                <div>Status: {show.status}</div>
-                <div>Where to watch: {show.streaming}</div>
+                <div class='description'>{show.description}</div>
+                <div class='status'><span class='bold'>Status: </span>{show.status}</div>
+                <div class='streaming'><span class='bold'>Where to watch: </span>{show.streaming}</div>
                 <hr class='hr' />
               </div>
             })}
