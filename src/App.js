@@ -64,9 +64,11 @@ class App extends React.Component {
 
     const tagSet = new Set();
     this.state.data.forEach(show => {
-      show.tags.split(',').forEach(tag => {
-        tagSet.add(tag.trim());
-      })
+      if (show.tags) {
+        show.tags.split(',').forEach(tag => {
+          tagSet.add(tag.trim());
+        })
+      }
     });
     const tags = Array.from(tagSet).sort();
 
@@ -83,7 +85,7 @@ class App extends React.Component {
       filteredData = filteredData.filter(show => show.genre.includes(this.state.selectedGenre));
     }
     if (this.state.selectedTag) {
-      filteredData = filteredData.filter(show => show.tags.includes(this.state.selectedTag));
+      filteredData = filteredData.filter(show => show.tags && show.tags.includes(this.state.selectedTag));
     }
     if (this.state.selectedStreaming) {
       filteredData = filteredData.filter(show => show.streaming.includes(this.state.selectedStreaming));

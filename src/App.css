@@ -1,8 +1,12 @@
 .mainFrame {
   font-family: Cabin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
+  width: 100%;
   background-color: #e5951f;
   display: flex;
   align-items: center;
@@ -19,6 +23,8 @@
 }
 
 .body {
+  flex: 1;
+  max-width: 1300px;
   background-color: white;
   padding-left: 52px;
   padding-right: 52px;
