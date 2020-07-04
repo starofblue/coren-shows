@@ -1,12 +1,16 @@
 import React from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import Filter from './filter.js';
 import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = {
+      data: [],
+      selectedGenre: null,
+      selectedTag: null,
+      selectedStreaming: null
+    };
   }
 
   componentDidMount() {
@@ -37,46 +41,102 @@ class App extends React.Component {
       .catch(err => { throw err });  // TODO show a nice error message
   }
 
+  selectGenre = (newGenre) => {
+    this.setState({ selectedGenre: newGenre });
+  }
+
+  selectTag = (newTag) => {
+    this.setState({ selectedTag: newTag });
+  }
+
+  selectStreaming = (newStreaming) => {
+    this.setState({ selectedStreaming: newStreaming });
+  }
+
   render() {
+    const genreSet = new Set();
+    this.state.data.forEach(show => {
+      show.genre.split(',').forEach(genre => {
+        genreSet.add(genre.trim());
+      })
+    });
+    const genres = Array.from(genreSet).sort();
+
+    const tagSet = new Set();
+    this.state.data.forEach(show => {
+      show.tags.split(',').forEach(tag => {
+        tagSet.add(tag.trim());
+      })
+    });
+    const tags = Array.from(tagSet).sort();
+
+    const streamingServiceSet = new Set();
+    this.state.data.forEach(show => {
+      show.streaming.split(',').forEach(streaming => {
+        streamingServiceSet.add(streaming.trim());
+      })
+    });
+    const streamingServices = Array.from(streamingServiceSet).sort();
+
+    let filteredData = this.state.data;
+    if (this.state.selectedGenre) {
+      filteredData = filteredData.filter(show => show.genre.includes(this.state.selectedGenre));
+    }
+    if (this.state.selectedTag) {
+      filteredData = filteredData.filter(show => show.tags.includes(this.state.selectedTag));
+    }
+    if (this.state.selectedStreaming) {
+      filteredData = filteredData.filter(show => show.streaming.includes(this.state.selectedStreaming));
+    }
+
     return (
-      <div class='mainFrame'>
-        <div class='title'>
-          <img class='titlePic' src='https://drive.google.com/uc?export=view&id=1lk2mztscq5D2stuCj9lOW2JEM2zbSfp8' alt="Coren's shows" />
+      <div className='mainFrame'>
+        <div className='title'>
+          <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1593892976/coren_s_shows_hlak3u.svg' alt="Coren's shows" />
           A website where I list TV shows I like
         </div>
-        <div class='body'>
-          <div class='subtitle'>I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.</div>
-          <div class='subtitle'>Filter by genre, tags, or availability on streaming services to find your next show.</div>
-          <div class='subtitle'>Happy watching!</div>
-          <div class='filterBox'>
-            <div class='filterLabel'>Filter by:</div>
-            <DropdownButton className='filter' id='genre' variant='default' title="Genre">
-              <Dropdown.Item>Action</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton className='filter' id='tags' variant='default' title="Tags">
-              <Dropdown.Item>Action</Dropdown.Item>
-            </DropdownButton>
-            <DropdownButton className='filter' id='streaming' variant='default' title="Streaming">
-              <Dropdown.Item>Action</Dropdown.Item>
-            </DropdownButton>
+        <div className='body'>
+          <div className='subtitle'>I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.</div>
+          <div className='subtitle'>Filter by genre, tags, or availability on streaming services to find your next show.</div>
+          <div className='subtitle'>Happy watching!</div>
+          <div className='filterBox'>
+            <div className='filterLabel'>Filter by:</div>
+            <Filter
+              placeholder='Genre'
+              items={genres}
+              selectedItem={this.state.selectedGenre}
+              onSelectItem={this.selectGenre}
+            />
+            <Filter
+              placeholder='Tags'
+              items={tags}
+              selectedItem={this.state.selectedTag}
+              onSelectItem={this.selectTag}
+            />
+            <Filter
+              placeholder='Streaming'
+              items={streamingServices}
+              selectedItem={this.state.selectedStreaming}
+              onSelectItem={this.selectStreaming}
+            />
           </div>
-          <div class='tvShowList'>
-            {this.state.data.map((show, index) => {
-              return <div class='tvShow' key={index}>
-                <div class='mainRow'>
-                  <img class='thumbnail' src={'https://drive.google.com/uc?export=view&id=' + show.image_id} alt='Show thumbnail' />
-                  <div class='mainDetails'>
-                    <div class='showTitle'>{show.name}</div>
-                    <div class='genre'>Genre: {show.genre}</div>
-                    <div class='tags'>Tags: {show.tags}</div>
+          <div className='tvShowList'>
+            {filteredData.map((show, index) =>
+              <div className='tvShow' key={index}>
+                <div className='mainRow'>
+                  <img className='thumbnail' src={show.imageurl} alt='Show thumbnail' />
+                  <div className='mainDetails'>
+                    <div className='showTitle'>{show.name}</div>
+                    <div className='genre'>Genre: {show.genre}</div>
+                    <div className='tags'>Tags: {show.tags}</div>
                   </div>
                 </div>
-                <div class='description'>{show.description}</div>
-                <div class='status'><span class='bold'>Status: </span>{show.status}</div>
-                <div class='streaming'><span class='bold'>Where to watch: </span>{show.streaming}</div>
-                <hr class='hr' />
+                <div className='description'>{show.description}</div>
+                <div className='status'><span className='bold'>Status: </span>{show.status}</div>
+                <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming}</div>
+                <hr className='hr' />
               </div>
-            })}
+            )}
           </div>
         </div>
       </div>

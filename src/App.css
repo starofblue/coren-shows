@@ -48,21 +48,6 @@
   margin-right: 28px;
 }
 
-.dropdown {
-  width: 117px;
-  height: 29px;
-  margin-right: 20px;
-}
-
-.dropdown-toggle {
-  background-color: white;
-  color: #909090;
-  text-align: left;
-  line-height: 0px;
-  width: 117px;
-  height: 29px;
-}
-
 .tvShowList {
   background-color: #f4f4f4;
   padding-top: 31px;

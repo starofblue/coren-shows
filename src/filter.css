@@ -1,0 +1,14 @@
+.dropdown {
+  min-width: 117px;
+  height: 29px;
+  margin-right: 20px;
+}
+
+.dropdown-toggle {
+  background-color: white;
+  color: #909090;
+  text-align: left;
+  line-height: 0px;
+  min-width: 117px;
+  height: 29px;
+}
