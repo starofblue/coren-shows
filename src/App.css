@@ -1,8 +1,19 @@
-.mainFrame {
+.wideFrame {
   font-family: Cabin;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f4f4f4;
+  padding-left: 22px;
+  padding-right: 22px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.articleFrame {
+  flex: 1;
+  max-width: 980px;
+  background-color: white;
 }
 
 .title {
@@ -66,7 +77,19 @@
   display: flex;
 }
 
+.poster {
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 243px;
+  width: 166px;
+  border-style: solid;
+  border-color: #e2e2e2;
+  border-width: 2px;
+}
+
 .thumbnail {
+  flex-grow: 0;
+  flex-shrink: 0;
   height: 100px;
   width: 166px;
   border-style: solid;
@@ -90,19 +113,19 @@
 }
 
 .tags {
-  margin-top: 11px;
+  margin-top: 12px;
 }
 
 .description {
-  margin-top: 17px;
+  margin-top: 12px;
 }
 
 .status {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .streaming {
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 .hr {

@@ -92,10 +92,11 @@ class App extends React.Component {
     }
 
     return (
-      <div className='mainFrame'>
+      <div className='wideFrame'>
+      <div className='articleFrame'>
         <div className='title'>
           <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1593892976/coren_s_shows_hlak3u.svg' alt="Coren's shows" />
-          A website where I list TV shows I like
+          A website where I list tv shows I like
         </div>
         <div className='body'>
           <div className='subtitle'>I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.</div>
@@ -126,20 +127,21 @@ class App extends React.Component {
             {filteredData.map((show, index) =>
               <div className='tvShow' key={index}>
                 <div className='mainRow'>
-                  <img className='thumbnail' src={show.imageurl} alt='Show thumbnail' />
+                  <img className={show.poster ? 'poster' : 'thumbnail'} src={show.poster || show.imageurl} alt='Show thumbnail' />
                   <div className='mainDetails'>
-                    <div className='showTitle'>{show.name}</div>
+                    <a className='showTitle' href={show.imdb}>{show.name}</a>
                     <div className='genre'>Genre: {show.genre}</div>
-                    <div className='tags'>Tags: {show.tags}</div>
+                    {show.tags && <div className='tags'>Tags: {show.tags}</div>}
+                    <div className='description'>{show.description}</div>
+                    <div className='status'><span className='bold'>Status: </span>{show.status}</div>
+                    <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming}</div>
                   </div>
                 </div>
-                <div className='description'>{show.description}</div>
-                <div className='status'><span className='bold'>Status: </span>{show.status}</div>
-                <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming}</div>
                 <hr className='hr' />
               </div>
             )}
           </div>
+        </div>
         </div>
       </div>
     );
