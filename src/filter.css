@@ -4,6 +4,14 @@
   margin-right: 20px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .dropdown {
+    min-width: 95px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .dropdown-toggle {
   background-color: white;
   color: #909090;
@@ -11,4 +19,10 @@
   line-height: 0px;
   min-width: 117px;
   height: 29px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .dropdown-toggle {
+    min-width: 95px;
+  }
 }

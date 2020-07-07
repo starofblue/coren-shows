@@ -96,42 +96,50 @@ class App extends React.Component {
       <div className='articleFrame'>
         <div className='title'>
           <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1593892976/coren_s_shows_hlak3u.svg' alt="Coren's shows" />
-          A website where I list tv shows I like
+          <span class='titleText'>A website where I list tv shows I like</span>
         </div>
         <div className='body'>
-          <div className='subtitle'>I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.</div>
-          <div className='subtitle'>Filter by genre, tags, or availability on streaming services to find your next show.</div>
-          <div className='subtitle'>Happy watching!</div>
+          <div className='subtitle' >
+            {`I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.
+
+              Filter by genre, tags, or availability on streaming services to find your next show.
+
+              Happy watching!`}
+          </div>
           <div className='filterBox'>
             <div className='filterLabel'>Filter by:</div>
-            <Filter
-              placeholder='Genre'
-              items={genres}
-              selectedItem={this.state.selectedGenre}
-              onSelectItem={this.selectGenre}
-            />
-            <Filter
-              placeholder='Tags'
-              items={tags}
-              selectedItem={this.state.selectedTag}
-              onSelectItem={this.selectTag}
-            />
-            <Filter
-              placeholder='Streaming'
-              items={streamingServices}
-              selectedItem={this.state.selectedStreaming}
-              onSelectItem={this.selectStreaming}
-            />
+            <div className='dropdowns'>
+              <Filter
+                placeholder='Genre'
+                items={genres}
+                selectedItem={this.state.selectedGenre}
+                onSelectItem={this.selectGenre}
+              />
+              <Filter
+                placeholder='Tags'
+                items={tags}
+                selectedItem={this.state.selectedTag}
+                onSelectItem={this.selectTag}
+              />
+              <Filter
+                placeholder='Streaming'
+                items={streamingServices}
+                selectedItem={this.state.selectedStreaming}
+                onSelectItem={this.selectStreaming}
+              />
+            </div>
           </div>
           <div className='tvShowList'>
             {filteredData.map((show, index) =>
               <div className='tvShow' key={index}>
                 <div className='mainRow'>
-                  <img className={show.poster ? 'poster' : 'thumbnail'} src={show.poster || show.imageurl} alt='Show thumbnail' />
-                  <div className='mainDetails'>
+                  <img className='poster' src={show.poster} alt='Poster' />
+                  <div className='upperProperties'>
                     <a className='showTitle' href={show.imdb}>{show.name}</a>
                     <div className='genre'>Genre: {show.genre}</div>
                     {show.tags && <div className='tags'>Tags: {show.tags}</div>}
+                  </div>
+                  <div className='lowerProperties'>
                     <div className='description'>{show.description}</div>
                     <div className='status'><span className='bold'>Status: </span>{show.status}</div>
                     <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming}</div>

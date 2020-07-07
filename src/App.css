@@ -10,10 +10,23 @@
   padding-bottom: 30px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .wideFrame {
+    padding: 0 0 0 0;
+  }
+}
+
 .articleFrame {
   flex: 1;
-  max-width: 980px;
+  width: 980px;
   background-color: white;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .articleFrame {
+    flex: 1;
+    width: 100%;
+  }
 }
 
 .title {
@@ -26,6 +39,16 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .titlePic {
   margin-top: 29px;
   margin-bottom: 28px;
@@ -33,9 +56,20 @@
   margin-right: 37px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .titlePic {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .titleText {
+    margin-bottom: 15px;
+  }
+}
+
 .body {
   flex: 1;
-  max-width: 1300px;
   background-color: white;
   padding-left: 52px;
   padding-right: 52px;
@@ -43,26 +77,65 @@
   padding-bottom: 30px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .body {
+    padding: 0 0 0 0;
+  }
+}
+
 .subtitle {
   font-size: 20px;
   display: flex;
-  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .subtitle {
+    font-size: 18px;
+    margin-top: 17px;
+    margin-left: 10px;
+    margin-right: 20px;
+  }
 }
 
 .filterBox {
   background-color: #e2e2e2;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   margin-top: 40px;
   padding: 12px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .filterBox {
+    margin-top: 30px;
+  }
+}
+
 .filterLabel {
-  max-width: 90px;
   font-size: 20px;
+  position: absolute;
   margin-left: 13px;
-  margin-right: 28px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .filterLabel {
+    font-size: 18px;
+    margin-left: 0px;
+  }
+}
+
+.dropdowns {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 110px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .dropdowns {
+    margin-left: 0px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
 }
 
 .tvShowList {
@@ -73,64 +146,130 @@
   padding-right: 24px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .tvShowList {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .mainRow {
-  display: flex;
+  min-height: 243px;
+  position: relative;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .mainRow {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }
 
 .poster {
-  flex-grow: 0;
-  flex-shrink: 0;
   height: 243px;
   width: 166px;
   border-style: solid;
   border-color: #e2e2e2;
   border-width: 2px;
+  position: absolute;
 }
 
-.thumbnail {
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 100px;
-  width: 166px;
-  border-style: solid;
-  border-color: #e2e2e2;
-  border-width: 2px;
+@media screen and (max-width: 500px) /* Mobile */ {
+  .poster {
+    height: 139px;
+    width: 95px;
+    position: static;
+  }
 }
 
-.mainDetails {
-  padding-left: 24px;
-  display: flex;
-  flex-direction: column;
+@media screen and (max-width: 500px) /* Mobile */ {
+  .upperProperties {
+    flex: 1;
+    margin-left: 10px;
+  }
 }
 
 .showTitle {
+  margin-left: 190px;
   font-size: 20px;
   font-weight: bold;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .showTitle {
+    margin-left: 0px;
+  }
+}
+
 .genre {
+  margin-left: 190px;
   margin-top: 12px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .genre {
+    margin-left: 0px;
+  }
 }
 
 .tags {
+  margin-left: 190px;
   margin-top: 12px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .tags {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .lowerProperties {
+    flex: 1;
+    min-width: 100%;  /* so that it goes underneath the poster and the other text */
+  }
 }
 
 .description {
+  margin-left: 190px;
   margin-top: 12px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .description {
+    margin-left: 0px;
+  }
 }
 
 .status {
+  margin-left: 190px;
   margin-top: 12px;
+}
+
+@media screen and (max-width: 500px) /* Mobile */ {
+  .status {
+    margin-left: 0px;
+  }
 }
 
 .streaming {
+  margin-left: 190px;
   margin-top: 12px;
 }
 
+@media screen and (max-width: 500px) /* Mobile */ {
+  .streaming {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+}
+
 .hr {
-   margin-top: 15px;
-   margin-bottom: 15px;
+   margin-top: 25px;
+   margin-bottom: 25px;
 }
 
 .bold {
