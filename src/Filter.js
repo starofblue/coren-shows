@@ -2,12 +2,17 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import PropTypes from 'prop-types';
-import './filter.css';
+import './Filter.css';
 
 export default class Filter extends React.Component {
   render() {
     return (
-      <DropdownButton id={this.props.title} variant='default' title={this.props.selectedItem || this.props.placeholder}>
+      <DropdownButton
+        className={this.props.selectedItem ? 'itemSelected' : ''}
+        id={this.props.title}
+        variant='default'
+        title={this.props.selectedItem || this.props.placeholder}
+      >
         <Dropdown.Item key={-1} eventKey={null} onSelect={this.props.onSelectItem}>--</Dropdown.Item>
         {this.props.items.map((item, index) =>
           <Dropdown.Item key={index} eventKey={item} onSelect={this.props.onSelectItem}>{item}</Dropdown.Item>

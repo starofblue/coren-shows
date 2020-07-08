@@ -2,6 +2,7 @@
   min-width: 117px;
   height: 29px;
   margin-right: 20px;
+  color: #6b6b6b;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
@@ -12,13 +13,17 @@
   }
 }
 
+.itemSelected {
+  color: black;
+}
+
 .dropdown-toggle {
   background-color: white;
-  color: #909090;
   text-align: left;
   line-height: 0px;
   min-width: 117px;
   height: 29px;
+  color: inherit;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {

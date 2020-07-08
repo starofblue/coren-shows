@@ -1,5 +1,5 @@
 import React from 'react';
-import Filter from './filter.js';
+import Filter from './Filter.js';
 import './App.css';
 
 class App extends React.Component {
