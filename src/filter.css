@@ -4,7 +4,7 @@
   margin-right: 20px;
 }
 
-@media screen and (max-width: 500px) /* Mobile */ {
+@media screen and (max-width: 800px) /* Mobile */ {
   .dropdown {
     min-width: 95px;
     margin-right: 10px;
@@ -21,7 +21,7 @@
   height: 29px;
 }
 
-@media screen and (max-width: 500px) /* Mobile */ {
+@media screen and (max-width: 800px) /* Mobile */ {
   .dropdown-toggle {
     min-width: 95px;
   }
