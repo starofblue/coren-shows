@@ -6,6 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      description: '',
       data: [],
       selectedGenre: null,
       selectedTag: null,
@@ -14,11 +15,20 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let url = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
+    let sheet1 = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
+    let sheet2 = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/2/public/full?alt=json';
     let data = [];
     let headers = [];
 
-    fetch(url)
+    fetch(sheet2)
+      .then(res => res.json())
+      .then((spreadsheetJSON) => {
+        const entries = spreadsheetJSON.feed.entry;
+        const description = entries[1].gs$cell.inputValue;
+        this.setState({ description: description });
+      })
+
+    fetch(sheet1)
       .then(res => res.json())
       .then((spreadsheetJSON) => {
         const entries = spreadsheetJSON.feed.entry;
@@ -99,13 +109,7 @@ class App extends React.Component {
           <span class='titleText'>A website where I list tv shows I like</span>
         </div>
         <div className='body'>
-          <div className='subtitle' >
-            {`I have personally watched every show listed, so you can rest assured that the quality of this content has been properly vetted.
-
-              Filter by genre, tags, or availability on streaming services to find your next show.
-
-              Happy watching!`}
-          </div>
+          <div className='subtitle'>{this.state.description}</div>
           <div className='filterBox'>
             <div className='filterLabel'>Filter by:</div>
             <div className='dropdowns'>
