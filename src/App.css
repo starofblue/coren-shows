@@ -308,20 +308,19 @@
 .rainbow {
     background: #e5951f; /* not working, use main orange */
     background: -moz-linear-gradient( top ,
-        rgba(255, 0, 0, 1) 0%,
-        rgba(255, 255, 0, 1) 20%,
-        rgba(0, 255, 0, 1) 40%,
-        rgba(0, 255, 255, 1) 60%,
-        rgba(0, 0, 255, 1) 80%,
-        rgba(255, 0, 255, 1) 100%
+        #7F0F76 0%,
+        #2B4189 20%,
+        #007F31 40%,
+        #C0BE00 60%,
+        #CD7400 80%,
+        #CD0008 100%
     );
     background: -webkit-gradient(linear,  left top,  right top,
-        color-stop(0%, rgba(255, 0, 0, 1)),
-        color-stop(20%, rgba(255, 255, 0, 1)),
-        color-stop(40%, rgba(0, 255, 0, 1)),
-        color-stop(60%, rgba(0, 255, 255, 1)),
-        color-stop(80%, rgba(0, 0, 255, 1)),
-        color-stop(100%, rgba(255, 0, 255, 1))
+        color-stop(0%, #7F0F76),
+        color-stop(20%, #2B4189),
+        color-stop(40%, #007F31),
+        color-stop(60%, #C0BE00),
+        color-stop(80%, #CD7400),
+        color-stop(100%, #CD0008)
     );
-    color: black;
 }
