@@ -6,8 +6,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: '',
       data: [],
+      description: '',
+      tagColors: [],
       selectedGenre: null,
       selectedTag: null,
       selectedStreaming: null
@@ -15,20 +16,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let sheet1 = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
-    let sheet2 = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/2/public/full?alt=json';
+    let showSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
+    let miscSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/2/public/full?alt=json';
+    let tagSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/3/public/full?alt=json';
     let data = [];
     let headers = [];
+    let tagColors = [];
+    let currTag = '';
 
-    fetch(sheet2)
+    fetch(miscSheet)
       .then(res => res.json())
       .then((spreadsheetJSON) => {
         const entries = spreadsheetJSON.feed.entry;
         const description = entries[1].gs$cell.inputValue;
         this.setState({ description: description });
-      })
+      });
 
-    fetch(sheet1)
+    fetch(showSheet)
       .then(res => res.json())
       .then((spreadsheetJSON) => {
         const entries = spreadsheetJSON.feed.entry;
@@ -39,16 +43,37 @@ class App extends React.Component {
           }
           else {
             if (entryContents.col === '1') {
-              data.push(Object());
+              data.push({ genre: [], tags: [], streaming: [] });
             }
             let row = data[data.length - 1];
             let header = headers[Number(entryContents.col) - 1];
-            row[header] = entryContents.inputValue;
+            if (['genre', 'tags', 'streaming'].includes(header)) {
+              row[header] = entryContents.inputValue.split(',').map(val => val.trim());
+            } else {
+              row[header] = entryContents.inputValue;
+            }
           }
         })
         this.setState({ data: data });
       })
       .catch(err => { throw err });  // TODO show a nice error message
+
+    fetch(tagSheet)
+      .then(res => res.json())
+      .then((spreadsheetJSON) => {
+        const entries = spreadsheetJSON.feed.entry;
+        entries.forEach(entry => {
+          let entryContents = entry.gs$cell;
+          if (entryContents.row !== '1') {
+            if (entryContents.col === '1') {
+              currTag = entryContents.inputValue;
+            } else {
+              tagColors[currTag] = entryContents.inputValue;
+            }
+          }
+        });
+        this.setState({ tagColors: tagColors });
+      });
   }
 
   selectGenre = (newGenre) => {
@@ -65,29 +90,21 @@ class App extends React.Component {
 
   render() {
     const genreSet = new Set();
-    this.state.data.forEach(show => {
-      show.genre.split(',').forEach(genre => {
-        genreSet.add(genre.trim());
-      })
-    });
-    const genres = Array.from(genreSet).sort();
-
     const tagSet = new Set();
-    this.state.data.forEach(show => {
-      if (show.tags) {
-        show.tags.split(',').forEach(tag => {
-          tagSet.add(tag.trim());
-        })
-      }
-    });
-    const tags = Array.from(tagSet).sort();
-
     const streamingServiceSet = new Set();
     this.state.data.forEach(show => {
-      show.streaming.split(',').forEach(streaming => {
-        streamingServiceSet.add(streaming.trim());
-      })
+      show.genre.forEach(genre => {
+        genreSet.add(genre);
+      });
+      show.tags.forEach(tag => {
+        tagSet.add(tag);
+      });
+      show.streaming.forEach(streaming => {
+        streamingServiceSet.add(streaming);
+      });
     });
+    const genres = Array.from(genreSet).sort();
+    const tags = Array.from(tagSet).sort();
     const streamingServices = Array.from(streamingServiceSet).sort();
 
     let filteredData = this.state.data;
@@ -95,7 +112,7 @@ class App extends React.Component {
       filteredData = filteredData.filter(show => show.genre.includes(this.state.selectedGenre));
     }
     if (this.state.selectedTag) {
-      filteredData = filteredData.filter(show => show.tags && show.tags.includes(this.state.selectedTag));
+      filteredData = filteredData.filter(show => show.tags.includes(this.state.selectedTag));
     }
     if (this.state.selectedStreaming) {
       filteredData = filteredData.filter(show => show.streaming.includes(this.state.selectedStreaming));
@@ -106,7 +123,7 @@ class App extends React.Component {
       <div className='articleFrame'>
         <div className='title'>
           <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1593892976/coren_s_shows_hlak3u.svg' alt="Coren's shows" />
-          <span class='titleText'>A website where I list tv shows I like</span>
+          <span className='titleText'>A website where I list tv shows I like</span>
         </div>
         <div className='body'>
           <div className='subtitle'>{this.state.description}</div>
@@ -140,13 +157,28 @@ class App extends React.Component {
                   <img className='poster' src={show.poster} alt='Poster' />
                   <div className='upperProperties'>
                     <a className='showTitle' href={show.imdb}>{show.name}</a>
-                    <div className='genre'>Genre: {show.genre}</div>
-                    {show.tags && <div className='tags'>Tags: {show.tags}</div>}
+                    <div className='genre'>Genre: {show.genre.join(', ')}</div>
+                    {show.tags.length > 0 &&
+                      <div className='tags'>
+                        Tags:
+                        <div className='tagBox'>
+                          {show.tags.map((tag, tagIndex) =>
+                            <div
+                              className={ tag.includes('LGBT') ? 'tag rainbow' : 'tag' }
+                              key={tagIndex}
+                              style={ tag.includes('LGBT') ? {} : { backgroundColor: this.state.tagColors[tag] }}
+                            >
+                              {tag}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    }
                   </div>
                   <div className='lowerProperties'>
                     <div className='description'>{show.description}</div>
                     <div className='status'><span className='bold'>Status: </span>{show.status}</div>
-                    <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming}</div>
+                    <div className='streaming'><span className='bold'>Where to watch: </span>{show.streaming.join(', ')}</div>
                   </div>
                 </div>
                 <hr className='hr' />

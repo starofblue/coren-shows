@@ -218,11 +218,40 @@
 .tags {
   margin-left: 190px;
   margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
   .tags {
     margin-left: 0px;
+  }
+}
+
+.tagBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border-radius: 2px;
+  background-color: #e5951f;
+  width: 150px;
+  height: 23px;
+  line-height: 23px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .tag {
+    margin-top: 3px;
+    margin-bottom: 3px;
   }
 }
 
@@ -274,4 +303,25 @@
 
 .bold {
   font-weight: bold;
+}
+
+.rainbow {
+    background: #e5951f; /* not working, use main orange */
+    background: -moz-linear-gradient( top ,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 255, 0, 1) 20%,
+        rgba(0, 255, 0, 1) 40%,
+        rgba(0, 255, 255, 1) 60%,
+        rgba(0, 0, 255, 1) 80%,
+        rgba(255, 0, 255, 1) 100%
+    );
+    background: -webkit-gradient(linear,  left top,  right top,
+        color-stop(0%, rgba(255, 0, 0, 1)),
+        color-stop(20%, rgba(255, 255, 0, 1)),
+        color-stop(40%, rgba(0, 255, 0, 1)),
+        color-stop(60%, rgba(0, 255, 255, 1)),
+        color-stop(80%, rgba(0, 0, 255, 1)),
+        color-stop(100%, rgba(255, 0, 255, 1))
+    );
+    color: black;
 }
