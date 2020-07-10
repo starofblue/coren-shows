@@ -1,5 +1,6 @@
 import React from 'react';
 import Filter from './Filter.js';
+import SearchBox from './SearchBox.js';
 import './App.css';
 
 class App extends React.Component {
@@ -11,7 +12,8 @@ class App extends React.Component {
       tagColors: [],
       selectedGenre: null,
       selectedTag: null,
-      selectedStreaming: null
+      selectedStreaming: null,
+      searchText: ''
     };
   }
 
@@ -88,6 +90,10 @@ class App extends React.Component {
     this.setState({ selectedStreaming: newStreaming });
   }
 
+  updateSearch = (newText) => {
+    this.setState({ searchText: newText });
+  }
+
   render() {
     const genreSet = new Set();
     const tagSet = new Set();
@@ -117,6 +123,10 @@ class App extends React.Component {
     if (this.state.selectedStreaming) {
       filteredData = filteredData.filter(show => show.streaming.includes(this.state.selectedStreaming));
     }
+    if (this.state.searchText) {
+      let lowerText = this.state.searchText.toLowerCase()
+      filteredData = filteredData.filter(show => show.name.toLowerCase().includes(lowerText) || show.description.toLowerCase().includes(lowerText));
+    }
 
     return (
       <div className='wideFrame'>
@@ -129,6 +139,9 @@ class App extends React.Component {
           <div className='subtitle'>{this.state.description}</div>
           <div className='filterBox'>
             <div className='filterLabel'>Filter by:</div>
+            <div className='outerSearchBox'>
+              <SearchBox content={this.state.searchText} onUpdate={this.updateSearch} />
+            </div>
             <div className='dropdowns'>
               <Filter
                 placeholder='Genre'

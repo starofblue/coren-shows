@@ -1,0 +1,21 @@
+.searchInput {
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  width: 156px;
+  padding-left: 7px;
+  padding-right: 23px;
+  margin-right: -23px;
+}
+
+.searchIcon {
+  height: 20px;
+  width: 20px;
+  margin-bottom: 2px;
+}
+
+.clearIcon {
+  height: 20px;
+  width: 20px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}

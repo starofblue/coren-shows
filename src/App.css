@@ -102,6 +102,7 @@
   background-color: #e2e2e2;
   margin-top: 40px;
   padding: 12px;
+  position: relative;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
@@ -121,6 +122,11 @@
     font-size: 18px;
     margin-left: 0px;
   }
+}
+
+.outerSearchBox {
+  position: absolute;
+  right: 13px;
 }
 
 .dropdowns {
