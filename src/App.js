@@ -1,15 +1,20 @@
 import React from 'react';
 import Filter from './Filter.js';
 import SearchBox from './SearchBox.js';
+import SpreadsheetService from './SpreadsheetService.js';
 import './App.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      shows: [],
       description: '',
       tagColors: [],
+      genreOptions: [],
+      tagOptions: [],
+      streamingOptions: [],
+
       selectedGenre: null,
       selectedTag: null,
       selectedStreaming: null,
@@ -18,116 +23,45 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let showSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
-    let miscSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/2/public/full?alt=json';
-    let tagSheet = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/3/public/full?alt=json';
-    let data = [];
-    let headers = [];
-    let tagColors = [];
-    let currTag = '';
-
-    fetch(miscSheet)
-      .then(res => res.json())
-      .then((spreadsheetJSON) => {
-        const entries = spreadsheetJSON.feed.entry;
-        const description = entries[1].gs$cell.inputValue;
-        this.setState({ description: description });
-      });
-
-    fetch(showSheet)
-      .then(res => res.json())
-      .then((spreadsheetJSON) => {
-        const entries = spreadsheetJSON.feed.entry;
-        entries.forEach(entry => {
-          let entryContents = entry.gs$cell;
-          if (entryContents.row === '1') {
-            headers.push(entryContents.inputValue.toLowerCase());
-          }
-          else {
-            if (entryContents.col === '1') {
-              data.push({ genre: [], tags: [], streaming: [] });
-            }
-            let row = data[data.length - 1];
-            let header = headers[Number(entryContents.col) - 1];
-            if (['genre', 'tags', 'streaming'].includes(header)) {
-              row[header] = entryContents.inputValue.split(',').map(val => val.trim());
-            } else {
-              row[header] = entryContents.inputValue;
-            }
-          }
-        })
-        this.setState({ data: data });
-      })
-      .catch(err => { throw err });  // TODO show a nice error message
-
-    fetch(tagSheet)
-      .then(res => res.json())
-      .then((spreadsheetJSON) => {
-        const entries = spreadsheetJSON.feed.entry;
-        entries.forEach(entry => {
-          let entryContents = entry.gs$cell;
-          if (entryContents.row !== '1') {
-            if (entryContents.col === '1') {
-              currTag = entryContents.inputValue;
-            } else {
-              tagColors[currTag] = entryContents.inputValue;
-            }
-          }
+    SpreadsheetService.loadShows()
+      .then(shows => {
+        this.setState({
+          shows: shows,
+          // Once the shows are loaded, we can aggregate from them the genres, tags, and streaming services
+          genreOptions: SpreadsheetService.getAllGenres(),
+          tagOptions: SpreadsheetService.getAllTags(),
+          streamingOptions: SpreadsheetService.getAllStreaming()
         });
-        this.setState({ tagColors: tagColors });
       });
+
+    SpreadsheetService.loadDescription()
+      .then(description => this.setState({ description: description }));
+
+    SpreadsheetService.loadTagColors()
+      .then(tagColors => this.setState({ tagColors: tagColors }));
   }
 
   selectGenre = (newGenre) => {
-    this.setState({ selectedGenre: newGenre });
+    const shows = SpreadsheetService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText);
+    this.setState({ shows: shows, selectedGenre: newGenre });
   }
 
   selectTag = (newTag) => {
-    this.setState({ selectedTag: newTag });
+    const shows = SpreadsheetService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText)
+    this.setState({ shows: shows, selectedTag: newTag });
   }
 
   selectStreaming = (newStreaming) => {
-    this.setState({ selectedStreaming: newStreaming });
+    const shows = SpreadsheetService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText)
+    this.setState({ shows: shows, selectedStreaming: newStreaming });
   }
 
   updateSearch = (newText) => {
-    this.setState({ searchText: newText });
+    const shows = SpreadsheetService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newText)
+    this.setState({ shows: shows, searchText: newText });
   }
 
   render() {
-    const genreSet = new Set();
-    const tagSet = new Set();
-    const streamingServiceSet = new Set();
-    this.state.data.forEach(show => {
-      show.genre.forEach(genre => {
-        genreSet.add(genre);
-      });
-      show.tags.forEach(tag => {
-        tagSet.add(tag);
-      });
-      show.streaming.forEach(streaming => {
-        streamingServiceSet.add(streaming);
-      });
-    });
-    const genres = Array.from(genreSet).sort();
-    const tags = Array.from(tagSet).sort();
-    const streamingServices = Array.from(streamingServiceSet).sort();
-
-    let filteredData = this.state.data;
-    if (this.state.selectedGenre) {
-      filteredData = filteredData.filter(show => show.genre.includes(this.state.selectedGenre));
-    }
-    if (this.state.selectedTag) {
-      filteredData = filteredData.filter(show => show.tags.includes(this.state.selectedTag));
-    }
-    if (this.state.selectedStreaming) {
-      filteredData = filteredData.filter(show => show.streaming.includes(this.state.selectedStreaming));
-    }
-    if (this.state.searchText) {
-      let lowerText = this.state.searchText.toLowerCase()
-      filteredData = filteredData.filter(show => show.name.toLowerCase().includes(lowerText) || show.description.toLowerCase().includes(lowerText));
-    }
-
     return (
       <div className='wideFrame'>
       <div className='articleFrame'>
@@ -145,26 +79,26 @@ class App extends React.Component {
             <div className='dropdowns'>
               <Filter
                 placeholder='Genre'
-                items={genres}
+                items={this.state.genreOptions}
                 selectedItem={this.state.selectedGenre}
                 onSelectItem={this.selectGenre}
               />
               <Filter
                 placeholder='Tags'
-                items={tags}
+                items={this.state.tagOptions}
                 selectedItem={this.state.selectedTag}
                 onSelectItem={this.selectTag}
               />
               <Filter
                 placeholder='Streaming'
-                items={streamingServices}
+                items={this.state.streamingOptions}
                 selectedItem={this.state.selectedStreaming}
                 onSelectItem={this.selectStreaming}
               />
             </div>
           </div>
           <div className='tvShowList'>
-            {filteredData.map((show, index) =>
+            {this.state.shows.map((show, index) =>
               <div className='tvShow' key={index}>
                 <div className='mainRow'>
                   <img className='poster' src={show.poster} alt='Poster' />
