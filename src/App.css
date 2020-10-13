@@ -98,17 +98,28 @@
   }
 }
 
-.filterBox {
-  background-color: #e2e2e2;
-  margin-top: 40px;
-  padding: 12px;
+.countRow {
   position: relative;
+  height: 39px;
+}
+
+.showCount {
+  position: absolute;
+  right: 0px;
+  bottom: 5px;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
-  .filterBox {
-    margin-top: 30px;
+  .showCount {
+    right: 5px;
   }
+}
+
+.filterBox {
+  background-color: #e2e2e2;
+  padding: 12px;
+  position: relative;
 }
 
 .filterLabel {

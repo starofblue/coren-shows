@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shows: [],
+      shows: null,
       description: '',
       tagColors: [],
       genreOptions: [],
@@ -72,6 +72,11 @@ class App extends React.Component {
           </div>
           <div className='body'>
             <div className='subtitle'>{this.state.description}</div>
+            <div className='countRow'>
+              {this.state.shows != null &&
+                <div className='showCount'>Total Shows: {this.state.shows.length}</div>
+              }
+            </div>
             <div className='filterBox'>
               <div className='filterLabel'>Filter by:</div>
               <div className='outerSearchBox'>
@@ -99,7 +104,7 @@ class App extends React.Component {
               </div>
             </div>
             <div className='tvShowList'>
-              {this.state.shows.map((show) =>
+              {this.state.shows && this.state.shows.map((show) =>
                 <TVShow show={show} tagColors={this.state.tagColors} />
               )}
             </div>
