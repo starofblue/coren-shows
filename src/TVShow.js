@@ -30,6 +30,13 @@ export default class TVShow extends React.Component {
             }
           </div>
           <div className='lowerProperties'>
+            {this.props.show.blog &&
+              <a className='blogLink' href={this.props.show.blog}>
+                <img className='blogPic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1602568075/blogger_icon.png' alt='Blogger' />
+                <div className='blogStaticText'>Read blog post:</div>
+                <div className='blogDynamicText'>{this.props.show.blogtitle}</div>
+              </a>
+            }
             <div className='description'>
               {this.props.show.description}
             </div>
@@ -49,6 +56,8 @@ export default class TVShow extends React.Component {
 
 TVShow.propTypes = {
   show: PropTypes.shape({
+    blog: PropTypes.string,
+    blogtitle: PropTypes.string,
     description: PropTypes.string.isRequired,
     genre: PropTypes.arrayOf(PropTypes.string).isRequired,
     imdb: PropTypes.string.isRequired,

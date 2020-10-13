@@ -21,7 +21,7 @@ class SpreadsheetService {
    * Each show is represented by an object, where the keys of the object match the headers in the spreadsheet.
    */
   loadShows() {
-    // The spreadsheet has these columns: Name, Genre, Description, Streaming, Status, Tags, IMDB, Poster
+    // The spreadsheet has these columns: Name, Genre, Description, Streaming, Status, Tags, IMDB, Poster, Blog, BlogTitle
     // The order of the cells returned is like reading English, left-to-right and then top-to-bottom. So we pass over
     // the top row first, adding all of the headers to an array, and then reference those headers when processing the
     // data rows.
