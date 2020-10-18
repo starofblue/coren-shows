@@ -67,8 +67,9 @@ class App extends React.Component {
       <div className='wideFrame'>
         <div className='articleFrame'>
           <div className='title'>
-            <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1593892976/coren_s_shows_hlak3u.svg' alt="Coren's shows" />
+            <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1602829694/CorenTV_logo.png' alt="Coren's shows" />
             <span className='titleText'>A website where I list tv shows I like</span>
+            <a className='mainBlogLink' href='https://corensreviews.blogspot.com'>TV Show Reviews</a>
           </div>
           <div className='body'>
             <div className='subtitle'>{this.state.description}</div>
