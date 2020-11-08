@@ -48,7 +48,6 @@ export default class TVShow extends React.Component {
             </div>
           </div>
         </div>
-        <hr className='hr' />
       </div>
     )
   }

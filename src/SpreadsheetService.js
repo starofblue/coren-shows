@@ -5,15 +5,20 @@
  */
 class SpreadsheetService {
   // These are links to the various sheets of the spreadsheet
+  baseURL = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/{sheetID}/public/full?alt=json'
   // First, the sheet which has the information about the tv shows themselves
-  showSheetURL = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/1/public/full?alt=json';
+  showSheetURL = this.baseURL.replace('{sheetID}', '1');
   // The sheet which lists the tags and their colours
-  tagSheetURL = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/3/public/full?alt=json';
+  tagSheetURL = this.baseURL.replace('{sheetID}', '3');
+  // The sheet which lists the collections of tv shows
+  collectionSheetURL = this.baseURL.replace('{sheetID}', '4');
   // The sheet with any other information (like the main site description, which Coren wanted to be able to change)
-  miscSheetURL = 'https://spreadsheets.google.com/feeds/cells/18PQLpof18w3cdDLeGKfBrQy7eDfvE15_BJVglDyZiug/2/public/full?alt=json';
+  miscSheetURL = this.baseURL.replace('{sheetID}', '2');
 
   constructor() {
     this.showList = [];
+    this.showByName = {};  // convenient lookup table
+    this.collectionList = [];
   }
 
   /**
@@ -29,29 +34,33 @@ class SpreadsheetService {
       .then(res => res.json())
       .then((spreadsheetJSON) => {
         const showList = [];
+        const showByName = {};
         const headers = [];
         const entries = spreadsheetJSON.feed.entry;
         entries.forEach(entry => {
           let entryContents = entry.gs$cell;
           if (entryContents.row === '1') {
             headers.push(entryContents.inputValue.toLowerCase());
+            return;
           }
-          else {
-            if (entryContents.col === '1') {
-              showList.push({ genre: [], tags: [], streaming: [] });
-            }
-            let row = showList[showList.length - 1];
-            let header = headers[Number(entryContents.col) - 1];
-            if (['genre', 'tags', 'streaming'].includes(header)) {
-              // These three columns store comma-separated lists, so we save them as arrays
-              row[header] = entryContents.inputValue.split(',').map(val => val.trim());
-            } else {
-              row[header] = entryContents.inputValue;
-            }
+          if (entryContents.col === '1') {
+            showList.push({ genre: [], tags: [], streaming: [] });
           }
+          let row = showList[showList.length - 1];
+          let header = headers[Number(entryContents.col) - 1];
+          if (['genre', 'tags', 'streaming'].includes(header)) {
+            // These three columns store comma-separated lists, so we save them as arrays
+            row[header] = entryContents.inputValue.split(',').map(val => val.trim());
+            return;
+          }
+          if (header === 'name') {
+            showByName[entryContents.inputValue] = row;
+          }
+          row[header] = entryContents.inputValue;
         });
         this.shuffleArray(showList);
         this.showList = showList;
+        this.showByName = showByName;
         return showList;
       });
   }
@@ -78,7 +87,7 @@ class SpreadsheetService {
   }
 
   /**
-   * Loads the tag colors from the spreadsheet.
+   * Loads the tag colors from the spreadsheet. Uses hardcoded column meanings.
    * Return value is a simple dictionary from tag name to hex color.
    */
   loadTagColors() {
@@ -99,6 +108,38 @@ class SpreadsheetService {
           }
         });
         return tagColors;
+      });
+  }
+
+  /**
+   * Loads the collections from the spreadsheet.
+   * Assumes the TV shows have already been loaded, and uses hardcoded column meanings.
+   */
+  loadCollections() {
+    return fetch(this.collectionSheetURL)
+      .then(res => res.json())
+      .then((spreadsheetJSON) => {
+        const collectionList = [];
+        const entries = spreadsheetJSON.feed.entry;
+        entries.forEach(entry => {
+          let entryContents = entry.gs$cell;
+          if (entryContents.row === '1') {
+            return;
+          }
+          if (entryContents.col === '1') {
+            collectionList.push({ name: entryContents.inputValue });
+            return;
+          }
+          let collection = collectionList[collectionList.length - 1];
+          if (entryContents.col === '2') {
+            collection.description = entryContents.inputValue;
+          } else if (entryContents.col === '3') {
+            const showNames = entryContents.inputValue.split(',');
+            collection.showList = showNames.map(showName => this.showByName[showName.trim()]);
+          }
+        });
+        this.collectionList = collectionList;
+        return collectionList;
       });
   }
 

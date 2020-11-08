@@ -125,9 +125,40 @@
   }
 }
 
-.countRow {
+.tabs {
+  display: flex;
   position: relative;
   height: 39px;
+  margin-top: 30px;
+}
+
+.tab {
+  width: 103px;
+  height: 39px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 39px;
+  cursor: pointer;
+  border-bottom: 2px #e5951f;
+  border-bottom-style: solid;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .tab {
+    display: none;
+  }
+}
+
+.activeTab {
+  background-color: #e5951f;
+  color: #ffffff;
+}
+
+.inactiveTab {
+  background-color: #ffffff;
+  color: #e5951f;
 }
 
 .showCount {
@@ -184,17 +215,8 @@
 
 .tvShowList {
   background-color: #f4f4f4;
-  padding-top: 31px;
-  padding-bottom: 31px;
-  padding-left: 24px;
-  padding-right: 24px;
 }
 
-@media screen and (max-width: 800px) /* Mobile */ {
-  .tvShowList {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+.collectionList {
+  background-color: #f4f4f4;
 }

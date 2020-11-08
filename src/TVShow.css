@@ -1,3 +1,29 @@
+.tvShow {
+  padding-top: 31px;
+  padding-bottom: 31px;
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+}
+
+.tvShow:after {
+  content: '';
+  width: 95%;
+  height: 1px;
+  background: rgba(0,0,0,.1);
+  position: absolute;
+  bottom: -1px;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .tvShow {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .mainRow {
   min-height: 243px;
   position: relative;
@@ -173,11 +199,6 @@
     margin-left: 0px;
     margin-top: 10px;
   }
-}
-
-.hr {
-   margin-top: 25px;
-   margin-bottom: 25px;
 }
 
 .bold {
