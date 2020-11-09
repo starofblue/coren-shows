@@ -54,7 +54,7 @@ class SpreadsheetService {
             return;
           }
           if (header === 'name') {
-            showByName[entryContents.inputValue] = row;
+            showByName[entryContents.inputValue.toLowerCase()] = row;
           }
           row[header] = entryContents.inputValue;
         });
@@ -135,7 +135,9 @@ class SpreadsheetService {
             collection.description = entryContents.inputValue;
           } else if (entryContents.col === '3') {
             const showNames = entryContents.inputValue.split(',');
-            collection.showList = showNames.map(showName => this.showByName[showName.trim()]);
+            collection.showList = showNames
+              .map(showName => this.showByName[showName.trim().toLowerCase()])
+              .filter(show => !!show);  // skip missing shows so that the site doesn't crash
           }
         });
         this.collectionList = collectionList;
