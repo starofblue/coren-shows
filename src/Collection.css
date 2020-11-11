@@ -25,6 +25,15 @@
   position: relative;
 }
 
+@media screen and (max-width: 800px) /* Mobile */ {
+  .collectionBody {
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .posterMontage {
   height: 243px;
   width: 166px;
@@ -33,16 +42,40 @@
   flex-wrap: wrap;
 }
 
+@media screen and (max-width: 800px) /* Mobile */ {
+  .posterMontage {
+    height: 139px;
+    width: 95px;
+    position: static;
+  }
+}
+
 .smallPosterTile {
   width: 53px;
   height: 79px;
   margin: 1px;
 }
 
+@media screen and (max-width: 800px) /* Mobile */ {
+  .smallPosterTile {
+    height: 45px;
+    width: 30px;
+    margin: 0.5px;
+  }
+}
+
 .largePosterTile {
   width: 81px;
   height: 119px;
   margin: 1px;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .largePosterTile {
+    height: 69px;
+    width: 46px;
+    margin: 0.5px;
+  }
 }
 
 .moreTile {
@@ -60,15 +93,37 @@
   text-align: center;
 }
 
+@media screen and (max-width: 800px) /* Mobile */ {
+  .moreText {
+    font-size: 11px;
+  }
+}
+
 .collectionTitle {
   margin-left: 190px;
   font-size: 20px;
   font-weight: bold;
 }
 
+@media screen and (max-width: 800px) /* Mobile */ {
+  .collectionTitle {
+    position: absolute;
+    left: 120px;
+    right: 10px;
+    top: 17px;
+    margin-left: 0px;
+  }
+}
+
 .collectionDescription {
   margin-left: 190px;
   margin-top: 12px;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .collectionDescription {
+    margin-left: 0px;
+  }
 }
 
 .collapseButton {
@@ -83,6 +138,14 @@
   text-align: center;
   line-height: 39px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .collapseButton {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .caret {
@@ -121,4 +184,10 @@
 .collectionShowBox {
   background-color: #f4f4f4;
   padding-left: 30px;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .collectionShowBox {
+    padding-left: 0px;
+  }
 }
