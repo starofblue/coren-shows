@@ -79,6 +79,10 @@ class App extends React.Component {
     this.setState({ activeTab: 'collections' });
   }
 
+  selectReviewsTab = () => {
+    this.setState({ activeTab: 'reviews' });
+  }
+
   render() {
     return (
       <div className='wideFrame'>
@@ -102,6 +106,12 @@ class App extends React.Component {
                 onClick={this.selectCollectionsTab}
               >
                 Collections
+              </div>
+              <div
+                className={this.state.activeTab === 'reviews' ? 'tab activeTab reviewsTab' : 'tab inactiveTab reviewsTab'}
+                onClick={this.selectReviewsTab}
+              >
+                Reviews
               </div>
               {this.state.activeTab === 'list' && this.state.shows != null &&
                 <div className='showCount'>Total Shows: {this.state.shows.length}</div>
@@ -147,6 +157,14 @@ class App extends React.Component {
                 {this.state.collections && this.state.collections.map((collection) =>
                   <Collection collection={collection} tagColors={this.state.tagColors} />
                 )}
+              </div>
+            }
+            {this.state.activeTab === 'reviews' &&
+              <div className='iframeWrapper'>
+                <iframe
+                  className='iframe'
+                  src='https://corensreviews.blogspot.com/'
+                />
               </div>
             }
           </div>
