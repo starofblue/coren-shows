@@ -44,7 +44,7 @@ class SpreadsheetService {
             return;
           }
           if (entryContents.col === '1') {
-            showList.push({ genre: [], tags: [], streaming: [] });
+            showList.push({ genre: [], tags: [], streaming: [], isFeatured: entryContents.row === '2' });
           }
           let row = showList[showList.length - 1];
           let header = headers[Number(entryContents.col) - 1];
@@ -58,16 +58,16 @@ class SpreadsheetService {
           }
           row[header] = entryContents.inputValue;
         });
-        this.shuffleArray(showList);
+        this.shuffleArray(showList, 1);
         this.showList = showList;
         this.showByName = showByName;
         return showList;
       });
   }
 
-  shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+  shuffleArray(array, startIndex) {
+    for (let i = array.length - 1; i > startIndex; i--) {
+        const j = Math.floor(Math.random() * (i + 1 - startIndex)) + startIndex;
         [array[i], array[j]] = [array[j], array[i]];
     }
   }

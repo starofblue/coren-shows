@@ -45,7 +45,7 @@ export default class Collection extends React.Component {
         {!this.state.isCollapsed &&
           <div className='collectionShowBox'>
             {this.props.collection.showList.map((show) =>
-              <TVShow show={show} tagColors={this.props.tagColors} />
+              <TVShow show={show} tagColors={this.props.tagColors} ignoreFeaturedShow={true} />
             )}
           </div>
         }
