@@ -4,7 +4,7 @@ import initSqlJs from 'sql.js';
  * The service responsible for getting data from the sqlite database that constitutes the backend of this application.
  */
 class DatabaseService {
-  dbURL = 'https://corentv.com/corenshows.db'
+  dbURL = '/corenshows.db'
 
   constructor() {
     this.showList = [];
