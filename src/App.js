@@ -2,7 +2,7 @@ import React from 'react';
 import Collection from './Collection.js';
 import Filter from './Filter.js';
 import SearchBox from './SearchBox.js';
-import SpreadsheetService from './SpreadsheetService.js';
+import DatabaseService from './DatabaseService.js';
 import TVShow from './TVShow.js';
 import './App.css';
 
@@ -27,41 +27,41 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    SpreadsheetService.loadShows()
+    DatabaseService.loadShows()
       .then(shows => {
         this.setState({
           shows: shows,
           // Once the shows are loaded, we can aggregate from them the genres, tags, and streaming services
-          genreOptions: SpreadsheetService.getAllGenres(),
-          tagOptions: SpreadsheetService.getAllTags(),
-          streamingOptions: SpreadsheetService.getAllStreaming()
+          genreOptions: DatabaseService.getAllGenres(),
+          tagOptions: DatabaseService.getAllTags(),
+          streamingOptions: DatabaseService.getAllStreaming()
         });
       });
 
-    SpreadsheetService.loadDescription()
+    DatabaseService.loadDescription()
       .then(description => this.setState({ description: description }));
 
-    SpreadsheetService.loadTagColors()
+    DatabaseService.loadTagColors()
       .then(tagColors => this.setState({ tagColors: tagColors }));
   }
 
   selectGenre = (newGenre) => {
-    const shows = SpreadsheetService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText);
+    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText);
     this.setState({ shows: shows, selectedGenre: newGenre });
   }
 
   selectTag = (newTag) => {
-    const shows = SpreadsheetService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText)
     this.setState({ shows: shows, selectedTag: newTag });
   }
 
   selectStreaming = (newStreaming) => {
-    const shows = SpreadsheetService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText)
     this.setState({ shows: shows, selectedStreaming: newStreaming });
   }
 
   updateSearch = (newText) => {
-    const shows = SpreadsheetService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newText)
     this.setState({ shows: shows, searchText: newText });
   }
 
@@ -71,7 +71,7 @@ class App extends React.Component {
 
   selectCollectionsTab = () => {
     if (this.state.collections === null) {
-      SpreadsheetService.loadCollections()
+      DatabaseService.loadCollections()
         .then(collections => {
           this.setState({ collections: collections });
         });
