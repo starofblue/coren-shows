@@ -15,7 +15,7 @@ class DatabaseService {
   }
 
   async loadDatabase() {
-    const SQL = await initSqlJs({ locateFile: file => `https://sql.js.org/dist/${file}` });
+    const SQL = await initSqlJs({ locateFile: file => `https://unpkg.com/sql.js@1.6.1/dist/${file}` });
     const dbfile = await fetch(this.dbURL);
     const buf = await dbfile.arrayBuffer();
     return new SQL.Database(new Uint8Array(buf));
