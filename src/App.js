@@ -27,6 +27,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // The description for the page is in a separate text file so that Coren can update it at will
+    fetch('/description.txt')
+     .then(response => response.text())
+     .then(text => this.setState({ description: text }));
+
     DatabaseService.loadShows()
       .then(shows => {
         this.setState({
@@ -37,9 +42,6 @@ class App extends React.Component {
           streamingOptions: DatabaseService.getAllStreaming()
         });
       });
-
-    DatabaseService.loadDescription()
-      .then(description => this.setState({ description: description }));
 
     DatabaseService.loadTagColors()
       .then(tagColors => this.setState({ tagColors: tagColors }));

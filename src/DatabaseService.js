@@ -68,29 +68,6 @@ class DatabaseService {
   }
 
   /**
-   * Loads the main page description from the database.
-   * I know, it's weird that this description isn't hardcoded, but Coren wanted to be able to change it on the fly.
-   */
-  loadDescription() {
-    return this.databasePromise
-      .then(db => {
-        let description = '';
-
-        const statement = db.prepare('SELECT Name, Value from Misc');
-        while (statement.step()) {
-          const row = statement.get();
-          var [name, value] = row;
-          if (name == 'description') {
-            description = value;
-          }
-        }
-        statement.free();
-
-        return description;
-      });
-  }
-
-  /**
    * Loads the tag colors from the database.
    * Return value is a simple dictionary from tag name to hex color.
    */
