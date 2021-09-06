@@ -217,6 +217,13 @@
   }
 }
 
+.spinner {
+  display: flex;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .tvShowList {
   background-color: #f4f4f4;
 }

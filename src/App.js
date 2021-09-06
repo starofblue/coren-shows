@@ -147,6 +147,9 @@ class App extends React.Component {
                 </div>
               </div>
             }
+            {(this.state.activeTab === 'list' || this.state.activeTab === 'collections') && !this.state.shows &&
+              <img className='spinner' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1630901013/spinner_small_bleq9v.gif' alt='Spinner' />
+            }
             {this.state.activeTab === 'list' &&
               <div className='tvShowList'>
                 {this.state.shows && this.state.shows.map((show) =>
