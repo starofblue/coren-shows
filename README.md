@@ -1,6 +1,9 @@
 
-[![maintenance][maintenance-shield]][maintenance-url]
-[![react][react-shield]][react-url]
+[![maintenance][maintenance-shield]][maintenance-url] 
+[<img src="https://gitpod.io/button/open-in-gitpod.svg" height="28px"/>](https://gitpod.io/#https://github.com/starofblue/coren-shows)
+
+
+Made in : [<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" height="25px"/>](https://create-react-app.dev/)
 
 
 
@@ -20,6 +23,3 @@ Can be found online at https://corentv.com
 
 [maintenance-shield]: https://img.shields.io/badge/Maintained%3F-yes-green.svg
 [maintenance-url]: https://github.com/CodeCarefully/DjangoWedding/graphs/commit-activity
-[react-shield]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[react-url]: https://create-react-app.dev/
-
