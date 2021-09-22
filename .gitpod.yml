@@ -1,3 +1,3 @@
 tasks:
-  - init: npm install && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db
+  - init: npm install && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db && cd ..
     command: serve -s build
