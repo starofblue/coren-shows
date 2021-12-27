@@ -174,6 +174,9 @@ class DatabaseService {
     if (url.includes('hbo.com')) {
       return 'HBO';
     }
+    if (url.includes('hbomax.com')) {
+      return 'HBO';
+    }
     if (url.includes('adultswim.com')) {
       return 'Adult Swim';
     }

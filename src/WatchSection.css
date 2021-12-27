@@ -15,6 +15,7 @@
   margin-right: 15px;
   margin-bottom: 5px;
   flex-shrink: 0;
+  background-color: white;
 }
 
 .watchOnButton:hover {
