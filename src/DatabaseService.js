@@ -201,6 +201,12 @@ class DatabaseService {
     if (url.includes('youtube.com')) {
       return 'Youtube';
     }
+    if (url.includes('paramountplus.com')) {
+      return 'Paramount+';
+    }
+    if (url.includes('amc.com')) {
+      return 'AMC';
+    }
     return url;  // if we don't recognize it, it's probably a name and not a url
   }
 }

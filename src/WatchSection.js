@@ -62,6 +62,12 @@ export default class WatchSection extends React.Component {
     if (serviceName === 'Youtube') {
       return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640569704/youtube_kl7eoj.png';
     }
+    if (serviceName === 'Paramount+') {
+      return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640634152/paramount_lqxi73.png';
+    }
+    if (serviceName === 'AMC') {
+      return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640634546/amc_x6lsof.png';
+    }
     return null;
   }
 
