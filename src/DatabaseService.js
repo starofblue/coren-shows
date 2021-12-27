@@ -41,8 +41,9 @@ class DatabaseService {
           const show = {name, description, status, imdb, poster, blog, blogtitle};
           show.genre = genre ? genre.split(',').map(val => val.trim()) : [];
           show.tags = tags ? tags.split(',').map(val => val.trim()) : [];
-          show.streaming = streaming ? streaming.split(',').map(val => val.trim()) : [];
-          show.isFeatured = (featured == 'Yes');
+          show.streamingUrls = streaming ? streaming.split(',').map(val => val.trim()) : [];
+          show.streaming = show.streamingUrls.map(url => this.mapStreamingUrlToService(url));
+          show.isFeatured = (featured === 'Yes');
           if (show.isFeatured) {
             featuredShowList.push(show);
           }
@@ -158,6 +159,46 @@ class DatabaseService {
       });
     });
     return Array.from(optionSet).sort();
+  }
+
+  mapStreamingUrlToService(url) {
+    if (url.includes('netflix.com')) {
+      return 'Netflix';
+    }
+    if (url.includes('hulu.com')) {
+      return 'Hulu';
+    }
+    if (url.includes('amazon.com')) {
+      return 'Amazon Prime';
+    }
+    if (url.includes('hbo.com')) {
+      return 'HBO';
+    }
+    if (url.includes('adultswim.com')) {
+      return 'Adult Swim';
+    }
+    if (url.includes('tv.apple.com')) {
+      return 'Apple TV';
+    }
+    if (url.includes('cartoonnetwork.com')) {
+      return 'Cartoon Network';
+    }
+    if (url.includes('www.cc.com')) {
+      return 'Comedy Central';
+    }
+    if (url.includes('disneyplus.com')) {
+      return 'Disney+';
+    }
+    if (url.includes('peacocktv.com')) {
+      return 'Peacock';
+    }
+    if (url.includes('vrv.co')) {
+      return 'VRV';
+    }
+    if (url.includes('youtube.com')) {
+      return 'Youtube';
+    }
+    return url;  // if we don't recognize it, it's probably a name and not a url
   }
 }
 

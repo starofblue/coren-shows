@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './TVShow.css';
+import WatchSection from './WatchSection.js';
 
 export default class TVShow extends React.Component {
 
@@ -51,7 +52,7 @@ export default class TVShow extends React.Component {
                 <span className='bold'>Status: </span>{this.props.show.status}
               </div>
               <div className='streaming'>
-                <span className='bold'>Where to watch: </span>{this.props.show.streaming.join(', ')}
+                <WatchSection sources={this.props.show.streamingUrls} />
               </div>
             </div>
           </div>
