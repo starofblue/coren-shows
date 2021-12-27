@@ -92,7 +92,12 @@ class App extends React.Component {
           <div className='title'>
             <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1602829694/CorenTV_logo.png' alt="Coren's shows" />
             <span className='titleText'>A website where I list tv shows I like</span>
-            <a className='mainBlogLink' href='https://corensreviews.blogspot.com'>TV Show Reviews</a>
+            <a className='instagramLink' href='https://instagram.com/coren.tv?utm_medium=copy_link'>
+              <img
+                className='instagramPic'
+                src='https://res.cloudinary.com/dyoiajatd/image/upload/v1640572574/instagram_czkr9g.png'
+                alt='Follow Coren TV on Instagram' />
+            </a>
           </div>
           <div className='body'>
             <div className='subtitle'>{this.state.description}</div>

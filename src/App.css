@@ -77,17 +77,21 @@
   }
 }
 
-.mainBlogLink {
-  display: none;
+.instagramLink {
   position: absolute;
-  top: 30px;
+  top: 20px;
   right: 30px;
-  text-decoration: underline;
   color: white;
 }
 
-.mainBlogLink:hover {
-  color: #007BFF;
+@media screen and (max-width: 800px) /* Mobile */ {
+  .instagramLink {
+    display: none;
+  }
+}
+
+.instagramPic {
+  height: 45px;
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
