@@ -207,6 +207,18 @@ class DatabaseService {
     if (url.includes('amc.com')) {
       return 'AMC';
     }
+    if (url.includes('amcplus.com')) {
+      return 'AMC';
+    }
+    if (url.includes('vimeo.com')) {
+      return 'Vimeo';
+    }
+    if (url.includes('cwtv.com')) {
+      return 'CW';
+    }
+    if (url.includes('nbc.com')) {
+      return 'NBC';
+    }
     return url;  // if we don't recognize it, it's probably a name and not a url
   }
 }

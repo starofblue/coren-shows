@@ -173,6 +173,7 @@ class App extends React.Component {
               <div className='iframeWrapper'>
                 <iframe
                   className='iframe'
+                  title='blog'
                   src='https://corensreviews.blogspot.com/'
                 />
               </div>

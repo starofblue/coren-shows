@@ -13,7 +13,7 @@ export default class WatchSection extends React.Component {
     }
 
     var text = 'Watch On';
-    if (source.includes('vimeo')) {
+    if (serviceName === 'Vimeo') {
       text = 'Buy On';
     }
 
@@ -67,6 +67,15 @@ export default class WatchSection extends React.Component {
     }
     if (serviceName === 'AMC') {
       return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640634546/amc_x6lsof.png';
+    }
+    if (serviceName === 'Vimeo') {
+      return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640833937/vimeo_qnh8vb.png';
+    }
+    if (serviceName === 'CW') {
+      return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640834104/thecw_rdaq2p.png';
+    }
+    if (serviceName === 'NBC') {
+      return 'https://res.cloudinary.com/dyoiajatd/image/upload/v1640834380/nbc_zemqc5.png';
     }
     return null;
   }
