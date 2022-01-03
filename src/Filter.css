@@ -24,6 +24,7 @@
   min-width: 117px;
   height: 29px;
   color: inherit;
+  padding-right: 25px;  /*  to make room for the caret */
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {

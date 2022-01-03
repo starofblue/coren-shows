@@ -67,6 +67,11 @@ class App extends React.Component {
     this.setState({ shows: shows, searchText: newText });
   }
 
+  clearFilters = () => {
+    const shows = DatabaseService.getShows(null, null, null, '');
+    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, searchText: '' });
+  }
+
   selectListTab = () => {
     this.setState({ activeTab: 'list' });
   }
@@ -149,6 +154,15 @@ class App extends React.Component {
                     selectedItem={this.state.selectedStreaming}
                     onSelectItem={this.selectStreaming}
                   />
+                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText) &&
+                    <div className='clearFilters' title='Clear Filters' onClick={this.clearFilters}>
+                      <img
+                        className='clearFiltersImg'
+                        src='https://res.cloudinary.com/dyoiajatd/image/upload/v1641244552/clear_filters_u7xfel.png'
+                        alt='Clear filters'
+                      />
+                    </div>
+                  }
                 </div>
               </div>
             }

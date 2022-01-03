@@ -201,6 +201,25 @@
   }
 }
 
+.clearFilters {
+  height: 29px;
+  background-color: white;
+  padding: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .clearFilters {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.clearFiltersImg {
+  max-height: 100%;
+}
+
 .outerSearchBox {
   position: absolute;
   right: 13px;
@@ -255,4 +274,10 @@
   -o-transform-origin: 0 0;
   -webkit-transform: scale(0.75);
   -webkit-transform-origin: 0 0;
+}
+
+/* override the caret positioning in bootstrap's dropdowns */
+.dropdown-toggle::after {
+    right: 11px !important;
+    position: absolute !important;
 }
