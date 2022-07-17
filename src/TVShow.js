@@ -26,9 +26,9 @@ export default class TVShow extends React.Component {
                   <div className='tagBox'>
                     {this.props.show.tags.map((tag, tagIndex) =>
                       <div
-                        className={ tag.includes('LGBT') ? 'rainbow tag' : 'tag' }
+                        className={ tag.includes('Queer') ? 'rainbow tag' : 'tag' }
                         key={tagIndex}
-                        style={ tag.includes('LGBT') ? {} : { backgroundColor: this.props.tagColors[tag] }}
+                        style={ tag.includes('Queer') ? {} : { backgroundColor: this.props.tagColors[tag] }}
                       >
                         {tag}
                       </div>
