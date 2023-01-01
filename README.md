@@ -1,5 +1,5 @@
 
-[![maintenance][maintenance-shield]][maintenance-url] 
+![maintenance][maintenance-shield]
 [<img src="https://gitpod.io/button/open-in-gitpod.svg" height="28px"/>](https://gitpod.io/#https://github.com/starofblue/coren-shows)
 
 
@@ -22,4 +22,4 @@ Can be found online at https://corentv.com
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [maintenance-shield]: https://img.shields.io/badge/Maintained%3F-yes-green.svg
-[maintenance-url]: https://github.com/CodeCarefully/DjangoWedding/graphs/commit-activity
+

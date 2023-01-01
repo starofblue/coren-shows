@@ -119,7 +119,7 @@ class DatabaseService {
   /**
    * Gets the TV shows matching the requested genre, tag, streaming service and search text.
    */
-  getShows(genre, tag, streaming, searchText) {
+  getShows(genre, tag, streaming, status, searchText) {
     let filteredData = this.showList;
     if (genre) {
       filteredData = filteredData.filter(show => show.genre.includes(genre));
@@ -130,6 +130,15 @@ class DatabaseService {
     if (streaming) {
       filteredData = filteredData.filter(show => show.streaming.includes(streaming));
     }
+
+    if (status === "Concluded") {
+      filteredData = filteredData.filter(show =>
+        show.status.toLowerCase().includes("concluded")
+          || show.status.toLowerCase().includes("cancelled")
+          || show.status.toLowerCase().includes("miniseries")
+      );
+    }
+
     if (searchText) {
       let lowerText = searchText.toLowerCase()
       filteredData = filteredData.filter(show =>

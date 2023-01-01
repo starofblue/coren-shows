@@ -22,6 +22,7 @@ class App extends React.Component {
       selectedGenre: null,
       selectedTag: null,
       selectedStreaming: null,
+      selectedStatus: null,
       searchText: ''
     };
   }
@@ -48,28 +49,33 @@ class App extends React.Component {
   }
 
   selectGenre = (newGenre) => {
-    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText);
+    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText);
     this.setState({ shows: shows, selectedGenre: newGenre });
   }
 
   selectTag = (newTag) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText)
     this.setState({ shows: shows, selectedTag: newTag });
   }
 
+  selectStatus = (newStatus) => {
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newStatus, this.state.searchText)
+    this.setState({ shows: shows, selectedStatus: newStatus });
+  }
+
   selectStreaming = (newStreaming) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.selectedStatus, this.state.searchText)
     this.setState({ shows: shows, selectedStreaming: newStreaming });
   }
 
   updateSearch = (newText) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, newText)
     this.setState({ shows: shows, searchText: newText });
   }
 
   clearFilters = () => {
-    const shows = DatabaseService.getShows(null, null, null, '');
-    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, searchText: '' });
+    const shows = DatabaseService.getShows(null, null, null, null, '');
+    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, selectedStatus: null, searchText: '' });
   }
 
   selectListTab = () => {
@@ -154,7 +160,14 @@ class App extends React.Component {
                     selectedItem={this.state.selectedStreaming}
                     onSelectItem={this.selectStreaming}
                   />
-                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText) &&
+
+                  <Filter
+                    placeholder='Status'
+                    items={['Concluded']}
+                    selectedItem={this.state.selectedStatus}
+                    onSelectItem={this.selectStatus}
+                  />
+                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText|| this.state.selectedStatus) &&
                     <div className='clearFilters' title='Clear Filters' onClick={this.clearFilters}>
                       <img
                         className='clearFiltersImg'
