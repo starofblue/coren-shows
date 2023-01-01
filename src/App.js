@@ -22,7 +22,8 @@ class App extends React.Component {
       selectedGenre: null,
       selectedTag: null,
       selectedStreaming: null,
-      searchText: ''
+      searchText: '',
+      selectedStatus: ''
     };
   }
 
@@ -48,17 +49,22 @@ class App extends React.Component {
   }
 
   selectGenre = (newGenre) => {
-    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText);
+    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText, this.state.selectedStatus);
     this.setState({ shows: shows, selectedGenre: newGenre });
   }
 
   selectTag = (newTag) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.searchText, this.state.selectedStatus)
     this.setState({ shows: shows, selectedTag: newTag });
   }
 
+  selectStatus = (newStatus) => {
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.searchText, newStatus)
+    this.setState({ shows: shows, selectedStatus: newStatus });
+  }
+
   selectStreaming = (newStreaming) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.searchText, this.state.selectedStatus)
     this.setState({ shows: shows, selectedStreaming: newStreaming });
   }
 
@@ -69,7 +75,7 @@ class App extends React.Component {
 
   clearFilters = () => {
     const shows = DatabaseService.getShows(null, null, null, '');
-    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, searchText: '' });
+    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, searchText: '', selectedStatus:'' });
   }
 
   selectListTab = () => {
@@ -154,7 +160,14 @@ class App extends React.Component {
                     selectedItem={this.state.selectedStreaming}
                     onSelectItem={this.selectStreaming}
                   />
-                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText) &&
+
+                  <Filter
+                    placeholder='Status'
+                    items={['',"Any","Concluded"]}
+                    selectedItem={this.state.selectedStatus}
+                    onSelectItem={this.selectStatus}
+                  />
+                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText|| this.state.selectedStatus) &&
                     <div className='clearFilters' title='Clear Filters' onClick={this.clearFilters}>
                       <img
                         className='clearFiltersImg'
