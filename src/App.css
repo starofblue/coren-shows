@@ -20,6 +20,8 @@
   flex: 1;
   width: 980px;
   background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.09);
 }
 
 @media screen and (max-width: 800px) /* Mobile */ {
@@ -46,24 +48,6 @@
     align-items: flex-start;
     padding-left: 10px;
     padding-right: 10px;
-  }
-}
-
-.titlePic {
-  width: 178px;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  margin-left: 31px;
-  margin-right: 49px;
-}
-
-@media screen and (max-width: 800px) /* Mobile */ {
-  .titlePic {
-    width: 120px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: 0px;
-    margin-right: 0px;
   }
 }
 

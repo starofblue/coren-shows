@@ -1,0 +1,48 @@
+.navBar {
+  width: 100%;
+  display: flex;
+  position: relative;
+  padding-left: 31px;
+  padding-right: 31px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titlePic {
+  width: 178px;
+  margin-right: 321px;
+}
+
+.navButton {
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navButton:hover{
+  text-decoration: none;
+}
+
+.currentNav {
+  color: #e5951f !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navButtonPic {
+  margin-right: 10px;
+  margin-bottom: 3px;
+}
+
+.navBar:after {
+  content: '';
+  width: 921px;
+  height: 1px;
+  background: #e5951f;
+  position: absolute;
+  bottom: 0px;
+  border: solid 1px #e5951f;
+}
