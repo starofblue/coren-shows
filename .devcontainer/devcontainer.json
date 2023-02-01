@@ -1,0 +1,9 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+    "version": "16.19.0",
+    "postCreateCommand": "bash -i -c 'nvm install v16.19.0 && nvm use v16.19.0 && npm install && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db && cd ..'"
+    }
+  }
+}
