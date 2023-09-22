@@ -1,9 +1,12 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/universal:2",
-    "features": {
-      "ghcr.io/devcontainers/features/node:1": {
-      "version": "18.17.1",
-      "postCreateCommand": "bash -i -c 'npm install && cp webpack_config_override node_modules/react-scripts/config/webpack.config.js && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db && cd .. '"
-      }
-    }
-  }
+  "name": "",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "forwardPorts": [8000],
+  "extensions": [
+    "ms-python.python"  // Install the Python extension
+  ],
+  "postCreateCommand": "bash -i -c 'npm install && cp webpack_config_override node_modules/react-scripts/config/webpack.config.js && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db && cd .. '"
+}
+   
