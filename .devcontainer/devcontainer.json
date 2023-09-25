@@ -1,0 +1,12 @@
+{
+  "name": "",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "forwardPorts": [8000],
+  "extensions": [
+    "ms-python.python"  // Install the Python extension
+  ],
+  "postCreateCommand": "bash -i -c 'npm install && cp webpack_config_override node_modules/react-scripts/config/webpack.config.js && npm run-script build && npm install -g serve && cd build && wget https://corentv.com/corenshows.db && cd .. '"
+}
+   
