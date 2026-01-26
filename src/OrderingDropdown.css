@@ -1,0 +1,35 @@
+.orderingDropdownMain {
+  min-width: 117px;
+  height: 29px;
+  margin-right: 20px;
+  color: #6b6b6b;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .dropdown {
+    min-width: 95px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.orderingDropdownMain .dropdown-toggle {
+  background-color: transparent;
+  color: blue !important;
+  text-align: left;
+  line-height: 0px;
+  min-width: 117px;
+  height: 29px;
+  color: inherit;
+  padding-right: 25px;  /*  to make room for the caret */
+}
+
+.orderingDropdownMain .btn:focus {
+  box-shadow: 0 0 0 0;
+}
+
+@media screen and (max-width: 800px) /* Mobile */ {
+  .dropdown-toggle {
+    min-width: 95px;
+  }
+}

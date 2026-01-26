@@ -1,6 +1,7 @@
 import React from 'react';
 import Collection from './Collection.js';
 import Filter from './Filter.js';
+import OrderingDropdown from './OrderingDropdown.js';
 import SearchBox from './SearchBox.js';
 import DatabaseService from './DatabaseService.js';
 import TVShow from './TVShow.js';
@@ -23,7 +24,8 @@ class App extends React.Component {
       selectedTag: null,
       selectedStreaming: null,
       selectedStatus: null,
-      searchText: ''
+      searchText: '',
+      selectedOrdering: 'Newest First'
     };
   }
 
@@ -49,33 +51,38 @@ class App extends React.Component {
   }
 
   selectGenre = (newGenre) => {
-    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText);
+    const shows = DatabaseService.getShows(newGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText, this.state.selectedOrdering);
     this.setState({ shows: shows, selectedGenre: newGenre });
   }
 
   selectTag = (newTag) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, newTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText, this.state.selectedOrdering)
     this.setState({ shows: shows, selectedTag: newTag });
   }
 
   selectStatus = (newStatus) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newStatus, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, newStatus, this.state.searchText, this.state.selectedOrdering)
     this.setState({ shows: shows, selectedStatus: newStatus });
   }
 
   selectStreaming = (newStreaming) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.selectedStatus, this.state.searchText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, newStreaming, this.state.selectedStatus, this.state.searchText, this.state.selectedOrdering)
     this.setState({ shows: shows, selectedStreaming: newStreaming });
   }
 
   updateSearch = (newText) => {
-    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, newText)
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, newText, this.state.selectedOrdering)
     this.setState({ shows: shows, searchText: newText });
   }
 
   clearFilters = () => {
-    const shows = DatabaseService.getShows(null, null, null, null, '');
-    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, selectedStatus: null, searchText: '' });
+    const shows = DatabaseService.getShows(null, null, null, null, this.state.searchText, this.state.selectedOrdering);
+    this.setState({ shows: shows, selectedGenre: null, selectedTag: null, selectedStreaming: null, selectedStatus: null });
+  }
+
+  updateOrdering = (newOrdering) => {
+    const shows = DatabaseService.getShows(this.state.selectedGenre, this.state.selectedTag, this.state.selectedStreaming, this.state.selectedStatus, this.state.searchText, newOrdering)
+    this.setState({ shows: shows, selectedOrdering: newOrdering });
   }
 
   selectListTab = () => {
@@ -103,12 +110,9 @@ class App extends React.Component {
           <div className='title'>
             <img className='titlePic' src='https://res.cloudinary.com/dyoiajatd/image/upload/v1602829694/CorenTV_logo.png' alt="Coren's shows" />
             <span className='titleText'>A website where I list tv shows I like</span>
-            <a className='instagramLink' href='https://instagram.com/coren.tv?utm_medium=copy_link'>
-              <img
-                className='instagramPic'
-                src='https://res.cloudinary.com/dyoiajatd/image/upload/v1640572574/instagram_czkr9g.png'
-                alt='Follow Coren TV on Instagram' />
-            </a>
+            <div className='outerSearchBox'>
+              <SearchBox content={this.state.searchText} onUpdate={this.updateSearch} />
+            </div>
           </div>
           <div className='body'>
             <div className='subtitle'>{this.state.description}</div>
@@ -138,8 +142,11 @@ class App extends React.Component {
             {this.state.activeTab === 'list' &&
               <div className='filterBox'>
                 <div className='filterLabel'>Filter by:</div>
-                <div className='outerSearchBox'>
-                  <SearchBox content={this.state.searchText} onUpdate={this.updateSearch} />
+                <div className='orderingDropdown'>
+                  <OrderingDropdown
+                    selectedItem={this.state.selectedOrdering}
+                    onSelectItem={this.updateOrdering}
+                  />
                 </div>
                 <div className='dropdowns'>
                   <Filter
@@ -167,7 +174,7 @@ class App extends React.Component {
                     selectedItem={this.state.selectedStatus}
                     onSelectItem={this.selectStatus}
                   />
-                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.searchText|| this.state.selectedStatus) &&
+                  {(this.state.selectedGenre || this.state.selectedTag || this.state.selectedStreaming || this.state.selectedStatus) &&
                     <div className='clearFilters' title='Clear Filters' onClick={this.clearFilters}>
                       <img
                         className='clearFiltersImg'

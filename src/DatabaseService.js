@@ -8,6 +8,7 @@ class DatabaseService {
 
   constructor() {
     this.showList = [];
+    this.shuffledShowList = [];
     this.showByName = {};  // convenient lookup table
     this.collectionList = [];
 
@@ -33,7 +34,7 @@ class DatabaseService {
         const showByName = {};
 
         const statement = db.prepare(
-          'SELECT Name, Genre, Description, Streaming, Status, Tags, IMDB, Poster, Blog, BlogTitle, Featured from Shows'
+          'SELECT Name, Genre, Description, Streaming, Status, Tags, IMDB, Poster, Blog, BlogTitle, Featured from Shows ORDER BY ID DESC'
         );
         while (statement.step()) {
           const row = statement.get();
@@ -62,8 +63,10 @@ class DatabaseService {
         }
         statement.free();
 
-        this.shuffleArray(showList, 0);
+        this.shuffledShowList = showList.slice(0);
+        this.shuffleArray(this.shuffledShowList, 0);
         this.showList = featuredShowList.concat(showList);
+        this.shuffledShowList = featuredShowList.concat(this.shuffledShowList);
         this.showByName = showByName;
         return this.showList;
       });
@@ -127,8 +130,8 @@ class DatabaseService {
   /**
    * Gets the TV shows matching the requested genre, tag, streaming service and search text.
    */
-  getShows(genre, tag, streaming, status, searchText) {
-    let filteredData = this.showList;
+  getShows(genre, tag, streaming, status, searchText, ordering) {
+    let filteredData = ordering == 'Randomized' ? this.shuffledShowList : this.showList;
     if (genre) {
       filteredData = filteredData.filter(show => show.genre.includes(genre));
     }
